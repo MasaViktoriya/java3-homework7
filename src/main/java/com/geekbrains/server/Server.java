@@ -65,4 +65,11 @@ public class Server {
         connectedUsers.remove(handler);
     }
 
+    public void sendPersonalMessage(String senderNickName, String recipientNickName, String personalMessage) {
+        for (ClientHandler handler: connectedUsers){
+            if (handler.getNickname().equals(recipientNickName)) {
+                handler.sendMessage(senderNickName + " (PM): " + personalMessage);
+            }
+        }
+    }
 }
