@@ -72,8 +72,15 @@ public class ClientHandler {
             System.out.println("от " + nickName + ": " + messageInChat);
             if (messageInChat.equals(ServerCommandConstants.SHUTDOWN)){
                 return;
+            } else if (messageInChat.startsWith(ServerCommandConstants.PERSONALMESSAGE)) {
+                String [] personalMessageInfo = messageInChat.split(" ", 3);
+                String recipientNickName = personalMessageInfo[1];
+                String personalMessage = personalMessageInfo[2];
+                String senderNickName = this.getNickname();
+                server.sendPersonalMessage(senderNickName, recipientNickName, personalMessage);
+            } else {
+                server.broadcastMessage(nickName + ": " + messageInChat);
             }
-            server.broadcastMessage(nickName + ": " + messageInChat);
         }
     }
 
